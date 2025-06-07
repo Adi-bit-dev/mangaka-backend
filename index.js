@@ -95,7 +95,7 @@ app.get("/get-latest-manga", async (req, res) => {
     try {
         const latestManga = await Manga.find()
             .sort({ createdAt: -1 }) // Sort by most recent
-            .limit(4);               // Limit to 4 entries
+            .limit(15);               // Limit to 4 entries
 
         res.status(200).json(latestManga);
     } catch (err) {
