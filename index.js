@@ -11,7 +11,6 @@ app.use(express.json()); // for parsing application/json
 
 // Allow all origins
 app.use(cors());
-app.options('*', cors()); // This line is important for CORS preflight
 
 app.post("/login-user", async (req, res) => {
     const { email, password } = req.body;
