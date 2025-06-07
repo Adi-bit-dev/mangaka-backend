@@ -12,3 +12,5 @@ icacls "C:\data\db" /grant "NETWORK SERVICE:(OI)(CI)F" /T
 
 
 mongod --dbpath "C:\data\db"
+
+connection string- mongodb+srv://azuredark647:adiparijat2009@gmail.com@cluster0.mras6kj.mongodb.net/

@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/mangadb', {
+mongoose.connect('mongodb+srv://azuredark647:adiparijat2009@gmail.com@cluster0.mras6kj.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
-.then(()=>{
-    console.log("connected to MongoDB");
-})
+    .then(() => {
+        console.log("connected to MongoDB");
+    })
 
-.catch((err)=>{
-    console.log("Error connecting to MongoDB", err);
-})
+    .catch((err) => {
+        console.log("Error connecting to MongoDB", err);
+    })
 module.exports = mongoose;
