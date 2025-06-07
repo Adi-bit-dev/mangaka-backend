@@ -1,0 +1,14 @@
+delete the data/db folder
+
+open powershell and run these commands step by step
+
+New-Item -ItemType Directory -Force -Path "C:\data\db"
+
+Test-Path "C:\data\db"
+
+ if success it will return true
+
+icacls "C:\data\db" /grant "NETWORK SERVICE:(OI)(CI)F" /T
+
+
+mongod --dbpath "C:\data\db"
