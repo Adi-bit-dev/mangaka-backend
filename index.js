@@ -216,7 +216,6 @@ app.get("/manga-chapters", async (req, res) => {
     }
 })
 
-
 app.get("/specific-manga-chapter", async (req, res) => {
     const title = req.query.title?.trim();
     const chapter_no = parseInt(req.query.chapter_no);
@@ -249,6 +248,18 @@ app.get("/specific-manga-chapter", async (req, res) => {
     }
 });
 
+app.get("/get-trending-manga", async (req, res) => {
+    try {
+        const trendingManga = await Manga.find({})
+            .sort({ views: -1, bookmarks: -1 }) // Sort by views first, then bookmarks
+            .limit(20); // Optional: limit results
+
+        res.status(200).json(trendingManga);
+    } catch (error) {
+        console.error("Error fetching trending manga:", error);
+        res.status(500).json({ error: "Failed to fetch trending manga" });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

@@ -5,6 +5,14 @@ const mangaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    views: {
+        type: Number,
+        default: 1
+    },
+    bookmarks: {
+        type: Number,
+        default: 1
+    },
     author: {
         type: String,
     },
