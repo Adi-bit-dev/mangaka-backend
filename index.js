@@ -95,7 +95,7 @@ app.get("/get-latest-manga", async (req, res) => {
     try {
         const latestManga = await Manga.find()
             .sort({ createdAt: -1 }) // Sort by most recent
-            .limit(15);               // Limit to 4 entries
+            .limit(8);               // Limit to 8 entries
 
         res.status(200).json(latestManga);
     } catch (err) {
@@ -252,7 +252,7 @@ app.get("/get-trending-manga", async (req, res) => {
     try {
         const trendingManga = await Manga.find({})
             .sort({ views: -1, bookmarks: -1 }) // Sort by views first, then bookmarks
-            .limit(20); // Optional: limit results
+            .limit(5); // Optional: limit results
 
         res.status(200).json(trendingManga);
     } catch (error) {
