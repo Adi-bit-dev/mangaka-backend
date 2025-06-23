@@ -43,6 +43,48 @@ app.post("/login-user", async (req, res) => {
     }
 })
 
+// endpoint to handle google login and signup
+app.post("/google-login", async (req, res) => {
+    // extract info
+    const { email, profile_pic, name, password } = req.body;
+
+    // find user in database
+    try {
+        const user = await User.findOne({
+            email: email,
+            password: password,
+            username: name,
+            profile_pic: profile_pic
+        })
+
+        if (user) {
+            // user found in database
+            res.status(201).json({
+                message: "user found in database",
+                user: user
+            });
+        } else {
+            // proceed to create a new user
+
+            const newUser = new User({
+                email: email,
+                password: password,
+                username: name,
+                profile_pic: profile_pic
+            })
+
+            await newUser.save();
+
+            res.status(201).json({
+                message: "user created successfully",
+                user: newUser
+            });
+        }
+    } catch (err) {
+        console.log(" error occurred in google-login endpoint: ", err);
+    }
+})
+
 app.get('/', (req, res) => {
     res.send('This is the backend of mangaka');
 });

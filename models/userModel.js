@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Profiler } = require('react');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -12,6 +13,9 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         default: 'Randome dude'
+    },
+    profile_pic: {
+        type: String,
     }
 });
 
