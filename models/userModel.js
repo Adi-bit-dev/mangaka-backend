@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Profiler } = require('react');
 
 const userSchema = new mongoose.Schema({
     email: {
