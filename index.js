@@ -303,6 +303,37 @@ app.get("/get-trending-manga", async (req, res) => {
     }
 });
 
+app.post('/postBookmarks', async (req, res) => {
+    const { mangaName, email } = req.body;
+
+    if (!mangaName) {
+        res.status(404).json({ message: 'manga name not provided' })
+    } else {
+        try {
+            const manga = await Manga.findOne({ title: mangaName });
+
+            // find user in databse
+            const user = await User.findOne({ email: email })
+            if (!user) {
+                res.status(400).json({ message: 'bro what did you do the user dosent even exist' })
+            } else {
+                // Check if already bookmarked
+                if (user.bookmarks.includes(mangaName)) {
+                    return res.status(409).json({ message: 'Manga already bookmarked' });
+                }
+
+                // Add manga name to bookmarks array
+                user.bookmarks.push(mangaName);
+                await user.save();
+
+                return res.status(200).json({ message: 'Manga bookmarked successfully' });
+            }
+        } catch (err) {
+            console.log("error in the post bookmarks endpoint: ", err);
+        }
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
