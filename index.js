@@ -334,6 +334,33 @@ app.post('/postBookmarks', async (req, res) => {
     }
 })
 
+app.get('/get-bookmarks', async (req, rex) => {
+    const email = req.query.email; //extract the email from the query
+
+    if (!email) {
+        res.status(404).json({ message: 'Email is required' });
+    } else {
+        try {
+            const user = await User.findOne({ email: email });
+
+            if (!user || !user.bookmarks || user.bookmarks.length === 0) {
+                return res.status(404).json({ message: 'No bookmarks found' });
+            }
+
+            // Fetch all manga whose titles are in the user's bookmarks
+            const bookmarkedManga = await Manga.find({
+                title: { $in: user.bookmarks }
+            });
+
+            res.status(200).json({ bookmarks: bookmarkedManga });
+            
+        } catch (err) {
+            console.error('Error fetching bookmarks:', error);
+            res.status(500).json({ message: 'Server error' });
+        }
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
